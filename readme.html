@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-19 Tue 18:44 -->
+<!-- 2022-07-20 Wed 00:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pandas DataFrames</title>
@@ -23,13 +23,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgebc0941">1. Overview</a>
+<li><a href="#orgf5d315c">1. Overview</a>
 <ul>
-<li><a href="#org2d2bd09">1.1. Series</a></li>
-<li><a href="#org62a0d58">1.2. DataFrames</a></li>
-<li><a href="#org239f4e5">1.3. Columns, Index and Values.</a></li>
+<li><a href="#orgba5e676">1.1. Series</a></li>
+<li><a href="#orgc236f9c">1.2. DataFrames</a></li>
+<li><a href="#org563a2dd">1.3. Columns, Index and Values.</a></li>
 </ul>
 </li>
+<li><a href="#org3023036">2. Loading a Dataset with Pandas</a></li>
 </ul>
 </div>
 </div>
@@ -55,31 +56,31 @@
 </tbody>
 </table>
 
-<div id="outline-container-orgebc0941" class="outline-2">
-<h2 id="orgebc0941"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-orgf5d315c" class="outline-2">
+<h2 id="orgf5d315c"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Pandas is an open-source library that provides high performance data analysis tools for Python. It&rsquo;s one of the most widely preferred tools for data analysis. It is commonly used alongside Jupyter Notebooks to display datasets and manipulate data easily.
 </p>
 </div>
 
-<div id="outline-container-org2d2bd09" class="outline-3">
-<h3 id="org2d2bd09"><span class="section-number-3">1.1.</span> Series</h3>
+<div id="outline-container-orgba5e676" class="outline-3">
+<h3 id="orgba5e676"><span class="section-number-3">1.1.</span> Series</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 A one-dimensional, labeled array capable of holding any data type. The data is linear and has an index that acts as a key in a dictionary. For example an Excel file with a single column is an example of a Series, as it has the content of the cell and the cell index.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #3399DD;">import</span> pandas <span style="color: #3399DD;">as</span> pd
+<pre class="src src-python"><span style="color: #339CDB;">import</span> pandas <span style="color: #339CDB;">as</span> pd
 
 <span style="color: #a9dbfa;">high_schools</span> = [<span style="color: #c5937c;">"Huang High School"</span>,  <span style="color: #c5937c;">"Figueroa High School"</span>, <span style="color: #c5937c;">"Shelton High School"</span>, <span style="color: #c5937c;">"Hernandez High School"</span>,<span style="color: #c5937c;">"Griffin High School"</span>,<span style="color: #c5937c;">"Wilson High School"</span>, <span style="color: #c5937c;">"Cabrera High School"</span>, <span style="color: #c5937c;">"Bailey High School"</span>, <span style="color: #c5937c;">"Holden High School"</span>, <span style="color: #c5937c;">"Pena High School"</span>, <span style="color: #c5937c;">"Wright High School"</span>,<span style="color: #c5937c;">"Rodriguez High School"</span>, <span style="color: #c5937c;">"Johnson High School"</span>, <span style="color: #c5937c;">"Ford High School"</span>, <span style="color: #c5937c;">"Thomas High School"</span>]
 <span style="color: #a9dbfa;">school_series</span> = pd.Series(high_schools)
-<span style="color: #CC88CC;">print</span>(school_series)
+<span style="color: #C586C0;">print</span>(school_series)
 </pre>
 </div>
 
-<pre class="example" id="orgd0b0ea9">
+<pre class="example" id="org6777130">
 0         Huang High School
 1      Figueroa High School
 2       Shelton High School
@@ -100,8 +101,8 @@ dtype: object
 </div>
 </div>
 
-<div id="outline-container-org62a0d58" class="outline-3">
-<h3 id="org62a0d58"><span class="section-number-3">1.2.</span> DataFrames</h3>
+<div id="outline-container-orgc236f9c" class="outline-3">
+<h3 id="orgc236f9c"><span class="section-number-3">1.2.</span> DataFrames</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 A Pandas DataFrame is a two-dimensional labeled data structure with rows and columns with many possible types of data. An equivalent can be an Excel table.
@@ -146,13 +147,13 @@ A Pandas DataFrame is a two-dimensional labeled data structure with rows and col
 </table>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #a9dbfa;">high_school_dicts</span> = [{<span style="color: #c5937c;">"School ID"</span>: <span style="color: #BBCCAA; font-weight: bold;">0</span>, <span style="color: #c5937c;">"school_name"</span>: <span style="color: #c5937c;">"Huang High    School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"District"</span>},
-                   {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #BBCCAA; font-weight: bold;">1</span>, <span style="color: #c5937c;">"school_name"</span>: <span style="color: #c5937c;">"Figueroa High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"District"</span>},
-                    {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #BBCCAA; font-weight: bold;">2</span>, <span style="color: #c5937c;">"school_name"</span>:<span style="color: #c5937c;">"Shelton High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"Charter"</span>},
-                    {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #BBCCAA; font-weight: bold;">3</span>, <span style="color: #c5937c;">"school_name"</span>:<span style="color: #c5937c;">"Hernandez High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"District"</span>},
-                    {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #BBCCAA; font-weight: bold;">4</span>, <span style="color: #c5937c;">"school_name"</span>:<span style="color: #c5937c;">"Griffin High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"Charter"</span>}]
+<pre class="src src-python"><span style="color: #a9dbfa;">high_school_dicts</span> = [{<span style="color: #c5937c;">"School ID"</span>: <span style="color: #B5CEA8; font-weight: bold;">0</span>, <span style="color: #c5937c;">"school_name"</span>: <span style="color: #c5937c;">"Huang High    School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"District"</span>},
+                   {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #B5CEA8; font-weight: bold;">1</span>, <span style="color: #c5937c;">"school_name"</span>: <span style="color: #c5937c;">"Figueroa High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"District"</span>},
+                    {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #B5CEA8; font-weight: bold;">2</span>, <span style="color: #c5937c;">"school_name"</span>:<span style="color: #c5937c;">"Shelton High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"Charter"</span>},
+                    {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #B5CEA8; font-weight: bold;">3</span>, <span style="color: #c5937c;">"school_name"</span>:<span style="color: #c5937c;">"Hernandez High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"District"</span>},
+                    {<span style="color: #c5937c;">"School ID"</span>: <span style="color: #B5CEA8; font-weight: bold;">4</span>, <span style="color: #c5937c;">"school_name"</span>:<span style="color: #c5937c;">"Griffin High School"</span>, <span style="color: #c5937c;">"type"</span>: <span style="color: #c5937c;">"Charter"</span>}]
 <span style="color: #a9dbfa;">school_df</span> = pd.DataFrame(high_school_dicts)
-<span style="color: #CC88CC;">print</span>(school_df)
+<span style="color: #C586C0;">print</span>(school_df)
 </pre>
 </div>
 
@@ -170,41 +171,32 @@ A Pandas DataFrame is a two-dimensional labeled data structure with rows and col
 Creating a dictionary of information.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #a9dbfa;">school_id</span> = [<span style="color: #BBCCAA; font-weight: bold;">0</span>, <span style="color: #BBCCAA; font-weight: bold;">1</span>, <span style="color: #BBCCAA; font-weight: bold;">2</span>, <span style="color: #BBCCAA; font-weight: bold;">3</span>, <span style="color: #BBCCAA; font-weight: bold;">4</span>]
+<pre class="src src-python"><span style="color: #a9dbfa;">school_id</span> = [<span style="color: #B5CEA8; font-weight: bold;">0</span>, <span style="color: #B5CEA8; font-weight: bold;">1</span>, <span style="color: #B5CEA8; font-weight: bold;">2</span>, <span style="color: #B5CEA8; font-weight: bold;">3</span>, <span style="color: #B5CEA8; font-weight: bold;">4</span>]
 <span style="color: #a9dbfa;">school_name</span> = [<span style="color: #c5937c;">"Huang High School"</span>, <span style="color: #c5937c;">"Figueroa High School"</span>,
 <span style="color: #c5937c;">"Shelton High School"</span>, <span style="color: #c5937c;">"Hernandez High School"</span>,<span style="color: #c5937c;">"Griffin High School"</span>]
 <span style="color: #a9dbfa;">type_of_school</span> = [<span style="color: #c5937c;">"District"</span>, <span style="color: #c5937c;">"District"</span>, <span style="color: #c5937c;">"Charter"</span>, <span style="color: #c5937c;">"District"</span>,<span style="color: #c5937c;">"Charter"</span>]
 <span style="color: #a9dbfa;">high_schools_dict</span> = {<span style="color: #c5937c;">"School ID"</span>: school_id, <span style="color: #c5937c;">"school_name"</span>: school_name, <span style="color: #c5937c;">"type"</span>:type_of_school}
 <span style="color: #a9dbfa;">school_df</span> = pd.DataFrame(high_schools_dict)
-<span style="color: #CC88CC;">print</span>(high_school_df)
-</pre>
-</div>
-
-<pre class="example">
-   School ID            school_name      type
-0          0      Huang High School  District
-1          1   Figueroa High School  District
-2          2    Shelton High School   Charter
-3          3  Hernandez High School  District
-4          4    Griffin High School   Charter
+<span style="color: #C586C0;">print</span>(high_school_df)
 </pre>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org239f4e5" class="outline-3">
-<h3 id="org239f4e5"><span class="section-number-3">1.3.</span> Columns, Index and Values.</h3>
+<div id="outline-container-org563a2dd" class="outline-3">
+<h3 id="org563a2dd"><span class="section-number-3">1.3.</span> Columns, Index and Values.</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 The DataFrame elements can be accessed via a few properties.
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #CC88CC;">print</span>(<span style="color: #c5937c;">"Columns:\n"</span>, school_df.columns)
-<span style="color: #CC88CC;">print</span>(<span style="color: #c5937c;">"Index:\n"</span>, school_df.index)
-<span style="color: #CC88CC;">print</span>(<span style="color: #c5937c;">"Values:\n"</span>, school_df.values)
+<pre class="src src-python"><span style="color: #C586C0;">print</span>(<span style="color: #c5937c;">"Columns:\n"</span>, school_df.columns)
+<span style="color: #C586C0;">print</span>(<span style="color: #c5937c;">"Index:\n"</span>, school_df.index)
+<span style="color: #C586C0;">print</span>(<span style="color: #c5937c;">"Values:\n"</span>, school_df.values)
 </pre>
 </div>
 
-<pre class="example" id="org59361ce">
+<pre class="example" id="orga547f87">
 Columns:
  Index(['School ID', 'school_name', 'type'], dtype='object')
 Index:
@@ -219,10 +211,25 @@ Values:
 </div>
 </div>
 </div>
+
+<div id="outline-container-org3023036" class="outline-2">
+<h2 id="org3023036"><span class="section-number-2">2.</span> Loading a Dataset with Pandas</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #339CDB;">from</span> pathlib <span style="color: #339CDB;">import</span> Path
+
+<span style="color: #a9dbfa;">path</span> = Path.cwd() / <span style="color: #c5937c;">"resources"</span>
+<span style="color: #a9dbfa;">file_name</span> = <span style="color: #c5937c;">"schools_complete.csv"</span>
+
+
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Alberto Valdez</p>
-<p class="date">Created: 2022-07-19 Tue 18:44</p>
+<p class="date">Created: 2022-07-20 Wed 00:26</p>
 </div>
 </body>
 </html>

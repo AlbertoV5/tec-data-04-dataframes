@@ -115,3 +115,13 @@ Values:
  [4 'Griffin High School' 'Charter']]
 #+end_example
 
+* Loading a Dataset with Pandas
+
+#+begin_src python
+from pathlib import Path
+
+path = Path.cwd() / "resources"
+file_name = "schools_complete.csv"
+
+
+#+end_src
