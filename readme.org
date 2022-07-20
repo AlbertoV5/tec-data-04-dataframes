@@ -7,8 +7,6 @@
 #+PROPERTY: header-args:python :exports both :results output replace :session
 #+INCLUDE: ./publish.inc
 
-| [[https://github.com/AlbertoV5/tec-data-04-dataframes][Repository]] | [[https://albertov5.github.io/tec-data-04-dataframes/index.html][HTML]] |
-
 
 | [[https://albertov5.github.io/tec-data][<<<Home]] | [[./lesson-1.org][Lesson-1]] | [[./lesson-2.org][Lesson-2]] | [[./challenge/readme.org][Challenge>>>]] |
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-20 Wed 00:34 -->
+<!-- 2022-07-20 Wed 00:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pandas DataFrames</title>
@@ -19,23 +19,21 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">Pandas DataFrames</h1>
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<tbody>
-<tr>
-<td class="org-left"><a href="https://github.com/AlbertoV5/tec-data-04-dataframes">Repository</a></td>
-<td class="org-left"><a href="https://albertov5.github.io/tec-data-04-dataframes/index.html">HTML</a></td>
-</tr>
-</tbody>
-</table>
-
-
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org546e671">1. Overview</a>
+<ul>
+<li><a href="#org07b1bb2">1.1. Series</a></li>
+<li><a href="#orge6525f8">1.2. DataFrames</a></li>
+<li><a href="#org988f94f">1.3. Columns, Index and Values.</a></li>
+</ul>
+</li>
+<li><a href="#org1537f89">2. Loading a Dataset with Pandas</a></li>
+</ul>
+</div>
+</div>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -58,16 +56,16 @@
 </tbody>
 </table>
 
-<div id="outline-container-org7b990cb" class="outline-2">
-<h2 id="org7b990cb"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-org546e671" class="outline-2">
+<h2 id="org546e671"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Pandas is an open-source library that provides high performance data analysis tools for Python. It&rsquo;s one of the most widely preferred tools for data analysis. It is commonly used alongside Jupyter Notebooks to display datasets and manipulate data easily.
 </p>
 </div>
 
-<div id="outline-container-orgb4d26e2" class="outline-3">
-<h3 id="orgb4d26e2"><span class="section-number-3">1.1.</span> Series</h3>
+<div id="outline-container-org07b1bb2" class="outline-3">
+<h3 id="org07b1bb2"><span class="section-number-3">1.1.</span> Series</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 A one-dimensional, labeled array capable of holding any data type. The data is linear and has an index that acts as a key in a dictionary. For example an Excel file with a single column is an example of a Series, as it has the content of the cell and the cell index.
@@ -82,7 +80,7 @@ A one-dimensional, labeled array capable of holding any data type. The data is l
 </pre>
 </div>
 
-<pre class="example" id="org28c49b6">
+<pre class="example" id="org3e61d79">
 0         Huang High School
 1      Figueroa High School
 2       Shelton High School
@@ -103,8 +101,8 @@ dtype: object
 </div>
 </div>
 
-<div id="outline-container-orge45d383" class="outline-3">
-<h3 id="orge45d383"><span class="section-number-3">1.2.</span> DataFrames</h3>
+<div id="outline-container-orge6525f8" class="outline-3">
+<h3 id="orge6525f8"><span class="section-number-3">1.2.</span> DataFrames</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 A Pandas DataFrame is a two-dimensional labeled data structure with rows and columns with many possible types of data. An equivalent can be an Excel table.
@@ -185,8 +183,8 @@ Creating a dictionary of information.
 </div>
 </div>
 
-<div id="outline-container-orga093633" class="outline-3">
-<h3 id="orga093633"><span class="section-number-3">1.3.</span> Columns, Index and Values.</h3>
+<div id="outline-container-org988f94f" class="outline-3">
+<h3 id="org988f94f"><span class="section-number-3">1.3.</span> Columns, Index and Values.</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 The DataFrame elements can be accessed via a few properties.
@@ -198,7 +196,7 @@ The DataFrame elements can be accessed via a few properties.
 </pre>
 </div>
 
-<pre class="example" id="orgbc6df84">
+<pre class="example" id="org87ff5f4">
 Columns:
  Index(['School ID', 'school_name', 'type'], dtype='object')
 Index:
@@ -214,8 +212,8 @@ Values:
 </div>
 </div>
 
-<div id="outline-container-org0399cc3" class="outline-2">
-<h2 id="org0399cc3"><span class="section-number-2">2.</span> Loading a Dataset with Pandas</h2>
+<div id="outline-container-org1537f89" class="outline-2">
+<h2 id="org1537f89"><span class="section-number-2">2.</span> Loading a Dataset with Pandas</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #339CDB;">from</span> pathlib <span style="color: #339CDB;">import</span> Path
@@ -231,7 +229,7 @@ Values:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Alberto Valdez</p>
-<p class="date">Created: 2022-07-20 Wed 00:34</p>
+<p class="date">Created: 2022-07-20 Wed 00:49</p>
 </div>
 </body>
 </html>

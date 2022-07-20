@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-20 Wed 00:26 -->
+<!-- 2022-07-20 Wed 00:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pandas Lesson-1</title>
@@ -23,33 +23,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0f14a9b">1. Working with Data in Python</a>
+<li><a href="#org94e8406">1. Working with Data in Python</a>
 <ul>
-<li><a href="#org27d41e1">1.1. Creating a Pandas Series</a></li>
+<li><a href="#org3eab7d9">1.1. Creating a Pandas Series</a></li>
 </ul>
 </li>
-<li><a href="#org7a0c4c0">2. Creating a Pandas DataFrame</a>
+<li><a href="#org33b5dbe">2. Creating a Pandas DataFrame</a>
 <ul>
-<li><a href="#org6edccd3">2.1. With a List of Dictionaries</a></li>
-<li><a href="#org58dfd92">2.2. With a Dictionary of Lists</a></li>
+<li><a href="#orgb408062">2.1. With a List of Dictionaries</a></li>
+<li><a href="#orgae9125a">2.2. With a Dictionary of Lists</a></li>
 </ul>
 </li>
-<li><a href="#org368964f">3. Inspecting Data</a>
+<li><a href="#org8264a90">3. Inspecting Data</a>
 <ul>
-<li><a href="#orge301912">3.1. Operations in Series</a></li>
-<li><a href="#orgad34b5d">3.2. Adding Series to DataFrame</a></li>
+<li><a href="#orgb176433">3.1. Operations in Series</a></li>
+<li><a href="#org680533e">3.2. Adding Series to DataFrame</a></li>
 </ul>
 </li>
-<li><a href="#orga3523f8">4. Activity Training Grounds</a></li>
-<li><a href="#org0193b6c">5. Reading from a CSV file</a></li>
-<li><a href="#org2c2b4a4">6. Activity Good Reads</a></li>
-<li><a href="#org70ddece">7. Merging DataFrames</a></li>
-<li><a href="#orgf739b26">8. Activity Merging DataFrames</a></li>
-<li><a href="#org8ff79cd">9. Formatting Syntax</a></li>
-<li><a href="#orgcf24795">10. Activity Formatting Numbers</a></li>
-<li><a href="#org61e7306">11. Storing DataFrames</a></li>
-<li><a href="#org942aa0d">12. Pandas documentation</a></li>
-<li><a href="#org79fec46">13. Office Hours</a></li>
+<li><a href="#orgbdc93a7">4. Activity Training Grounds</a></li>
+<li><a href="#orgd4023d9">5. Reading from a CSV file</a></li>
+<li><a href="#org59b5593">6. Activity Good Reads</a></li>
+<li><a href="#org3a89c37">7. Merging DataFrames</a></li>
+<li><a href="#orged80345">8. Activity Merging DataFrames</a></li>
+<li><a href="#org6875842">9. Formatting Syntax</a></li>
+<li><a href="#org15312cb">10. Activity Formatting Numbers</a></li>
+<li><a href="#org339dcba">11. Storing DataFrames</a></li>
+<li><a href="#org9ec26ed">12. Pandas documentation</a></li>
+<li><a href="#org200a2cd">13. Office Hours</a></li>
 </ul>
 </div>
 </div>
@@ -71,8 +71,8 @@ These notes are taken during the class. Using a single Python session for all Py
 </p>
 
 
-<div id="outline-container-org0f14a9b" class="outline-2">
-<h2 id="org0f14a9b"><span class="section-number-2">1.</span> Working with Data in Python</h2>
+<div id="outline-container-org94e8406" class="outline-2">
+<h2 id="org94e8406"><span class="section-number-2">1.</span> Working with Data in Python</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #339CDB;">import</span> pandas <span style="color: #339CDB;">as</span> pd
@@ -89,8 +89,8 @@ These notes are taken during the class. Using a single Python session for all Py
 </div>
 
 
-<div id="outline-container-org27d41e1" class="outline-3">
-<h3 id="org27d41e1"><span class="section-number-3">1.1.</span> Creating a Pandas Series</h3>
+<div id="outline-container-org3eab7d9" class="outline-3">
+<h3 id="org3eab7d9"><span class="section-number-3">1.1.</span> Creating a Pandas Series</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 A series is a list with an explicit index, it preserves the index of its values regardless if they are sorted or not.
@@ -111,16 +111,16 @@ dtype: object
 </div>
 </div>
 
-<div id="outline-container-org7a0c4c0" class="outline-2">
-<h2 id="org7a0c4c0"><span class="section-number-2">2.</span> Creating a Pandas DataFrame</h2>
+<div id="outline-container-org33b5dbe" class="outline-2">
+<h2 id="org33b5dbe"><span class="section-number-2">2.</span> Creating a Pandas DataFrame</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Can be created from lists of dictionaries or dictionaries of lists.
 </p>
 </div>
 
-<div id="outline-container-org6edccd3" class="outline-3">
-<h3 id="org6edccd3"><span class="section-number-3">2.1.</span> With a List of Dictionaries</h3>
+<div id="outline-container-orgb408062" class="outline-3">
+<h3 id="orgb408062"><span class="section-number-3">2.1.</span> With a List of Dictionaries</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 As a list of dictionaries, the key of the dictionaries will be the titles of the columns and each row is each dictionary in the list.
@@ -163,8 +163,8 @@ You can have whatever type of data in the cell of the DataFrame, even dictionari
 </div>
 </div>
 
-<div id="outline-container-org58dfd92" class="outline-3">
-<h3 id="org58dfd92"><span class="section-number-3">2.2.</span> With a Dictionary of Lists</h3>
+<div id="outline-container-orgae9125a" class="outline-3">
+<h3 id="orgae9125a"><span class="section-number-3">2.2.</span> With a Dictionary of Lists</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Each key will represent a column and the lists represent the cells under the column. If we have many columns, the lists must have the same length, because Pandas can&rsquo;t know which value is missing.
@@ -189,8 +189,8 @@ Each key will represent a column and the lists represent the cells under the col
 </div>
 </div>
 
-<div id="outline-container-org368964f" class="outline-2">
-<h2 id="org368964f"><span class="section-number-2">3.</span> Inspecting Data</h2>
+<div id="outline-container-org8264a90" class="outline-2">
+<h2 id="org8264a90"><span class="section-number-2">3.</span> Inspecting Data</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <code>head()</code> will show the DataFrame headers.
@@ -207,7 +207,7 @@ Each key will represent a column and the lists represent the cells under the col
 </pre>
 </div>
 
-<pre class="example" id="org5c51488">
+<pre class="example" id="org06df24f">
 Getting the heading:
 
            Title  Year Released
@@ -232,8 +232,8 @@ Name: Title, dtype: object
 </pre>
 </div>
 
-<div id="outline-container-orge301912" class="outline-3">
-<h3 id="orge301912"><span class="section-number-3">3.1.</span> Operations in Series</h3>
+<div id="outline-container-orgb176433" class="outline-3">
+<h3 id="orgb176433"><span class="section-number-3">3.1.</span> Operations in Series</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Series supports arithmetic operations and they are applied to the whole series.
@@ -253,8 +253,8 @@ Name: Year Released, dtype: float64
 </div>
 </div>
 
-<div id="outline-container-orgad34b5d" class="outline-3">
-<h3 id="orgad34b5d"><span class="section-number-3">3.2.</span> Adding Series to DataFrame</h3>
+<div id="outline-container-org680533e" class="outline-3">
+<h3 id="org680533e"><span class="section-number-3">3.2.</span> Adding Series to DataFrame</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #a9dbfa;">df</span>[<span style="color: #c5937c;">"Year Released plus 10"</span>] = series
@@ -272,8 +272,8 @@ Name: Year Released, dtype: float64
 </div>
 </div>
 
-<div id="outline-container-orga3523f8" class="outline-2">
-<h2 id="orga3523f8"><span class="section-number-2">4.</span> Activity Training Grounds</h2>
+<div id="outline-container-orgbdc93a7" class="outline-2">
+<h2 id="orgbdc93a7"><span class="section-number-2">4.</span> Activity Training Grounds</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 The following html is the result of the Jupyter Notebook activity.
@@ -285,8 +285,8 @@ The following html is the result of the Jupyter Notebook activity.
 </div>
 </div>
 
-<div id="outline-container-org0193b6c" class="outline-2">
-<h2 id="org0193b6c"><span class="section-number-2">5.</span> Reading from a CSV file</h2>
+<div id="outline-container-orgd4023d9" class="outline-2">
+<h2 id="orgd4023d9"><span class="section-number-2">5.</span> Reading from a CSV file</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Pandas takes for granted a few things:
@@ -354,8 +354,8 @@ Whenever we access a DataFrame by slicing, we get a view of that DataFrame, so i
 </div>
 
 
-<div id="outline-container-org2c2b4a4" class="outline-2">
-<h2 id="org2c2b4a4"><span class="section-number-2">6.</span> Activity Good Reads</h2>
+<div id="outline-container-org59b5593" class="outline-2">
+<h2 id="org59b5593"><span class="section-number-2">6.</span> Activity Good Reads</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 The following is the result of the Good Reads Jupyter Notebook.
@@ -368,8 +368,8 @@ The following is the result of the Good Reads Jupyter Notebook.
 </div>
 
 
-<div id="outline-container-org70ddece" class="outline-2">
-<h2 id="org70ddece"><span class="section-number-2">7.</span> Merging DataFrames</h2>
+<div id="outline-container-org3a89c37" class="outline-2">
+<h2 id="org3a89c37"><span class="section-number-2">7.</span> Merging DataFrames</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 When merging data frames, the type of join determines what data to keep.
@@ -443,8 +443,8 @@ Outer join will use columns from both DataFrames and fill in the missing values 
 </div>
 
 
-<div id="outline-container-orgf739b26" class="outline-2">
-<h2 id="orgf739b26"><span class="section-number-2">8.</span> Activity Merging DataFrames</h2>
+<div id="outline-container-orged80345" class="outline-2">
+<h2 id="orged80345"><span class="section-number-2">8.</span> Activity Merging DataFrames</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 The following is the result of the Merging DataFrames Activity.
@@ -456,8 +456,8 @@ The following is the result of the Merging DataFrames Activity.
 </div>
 </div>
 
-<div id="outline-container-org8ff79cd" class="outline-2">
-<h2 id="org8ff79cd"><span class="section-number-2">9.</span> Formatting Syntax</h2>
+<div id="outline-container-org6875842" class="outline-2">
+<h2 id="org6875842"><span class="section-number-2">9.</span> Formatting Syntax</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 We can use the map function to apply an operation to each element of a Series and converts them into strings.
@@ -485,8 +485,8 @@ We can&rsquo;t apply a format to an existing string, it has to be a number type.
 </div>
 </div>
 
-<div id="outline-container-orgcf24795" class="outline-2">
-<h2 id="orgcf24795"><span class="section-number-2">10.</span> Activity Formatting Numbers</h2>
+<div id="outline-container-org15312cb" class="outline-2">
+<h2 id="org15312cb"><span class="section-number-2">10.</span> Activity Formatting Numbers</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 The following is the result of the Format Mapping activity.
@@ -498,8 +498,8 @@ The following is the result of the Format Mapping activity.
 </div>
 </div>
 
-<div id="outline-container-org61e7306" class="outline-2">
-<h2 id="org61e7306"><span class="section-number-2">11.</span> Storing DataFrames</h2>
+<div id="outline-container-org339dcba" class="outline-2">
+<h2 id="org339dcba"><span class="section-number-2">11.</span> Storing DataFrames</h2>
 <div class="outline-text-2" id="text-11">
 <div class="org-src-container">
 <pre class="src src-python">file_df.to_csv(resources / <span style="color: #c5937c;">"result.csv"</span>)
@@ -520,8 +520,8 @@ file_df.to_excel(resources / <span style="color: #c5937c;">"result.xlsx"</span>)
 </div>
 
 
-<div id="outline-container-org942aa0d" class="outline-2">
-<h2 id="org942aa0d"><span class="section-number-2">12.</span> Pandas documentation</h2>
+<div id="outline-container-org9ec26ed" class="outline-2">
+<h2 id="org9ec26ed"><span class="section-number-2">12.</span> Pandas documentation</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 The Pandas documentation is a great resource to learn how to use the library properly <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
@@ -529,8 +529,8 @@ The Pandas documentation is a great resource to learn how to use the library pro
 </div>
 </div>
 
-<div id="outline-container-org79fec46" class="outline-2">
-<h2 id="org79fec46"><span class="section-number-2">13.</span> Office Hours</h2>
+<div id="outline-container-org200a2cd" class="outline-2">
+<h2 id="org200a2cd"><span class="section-number-2">13.</span> Office Hours</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 It is good idea to invest time in Readme files and repository organization!
@@ -550,7 +550,7 @@ It is good idea to invest time in Readme files and repository organization!
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Alberto Valdez</p>
-<p class="date">Created: 2022-07-20 Wed 00:26</p>
+<p class="date">Created: 2022-07-20 Wed 00:49</p>
 </div>
 </body>
 </html>
