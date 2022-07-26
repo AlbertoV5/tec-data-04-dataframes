@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-20 Wed 00:49 -->
+<!-- 2022-07-26 Tue 01:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Challenge</title>
@@ -23,40 +23,286 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org832c6f7">Header</a></li>
-<li><a href="#orgbbc684e">Header</a></li>
-<li><a href="#orgfe43612">Header</a></li>
+<li><a href="#org327ff6d">School District Analysis</a>
+<ul>
+<li><a href="#org52b2f75">Overview</a></li>
+<li><a href="#orgc9e49a7">Results</a>
+<ul>
+<li><a href="#org48c8752">Math and reading scores by grade</a></li>
+<li><a href="#orgfad60e5">Scores by school spending</a></li>
+<li><a href="#org751cb13">Scores by school size</a></li>
+<li><a href="#org0834247">Scores by school type</a></li>
+</ul>
+</li>
+<li><a href="#orgfcfcae4">Summary</a></li>
+</ul>
+</li>
 </ul>
 </div>
+</div>
+
+<div id="outline-container-org327ff6d" class="outline-2">
+<h2 id="org327ff6d">School District Analysis</h2>
+<div class="outline-text-2" id="text-org327ff6d">
+</div>
+<div id="outline-container-org52b2f75" class="outline-3">
+<h3 id="org52b2f75">Overview</h3>
+<div class="outline-text-3" id="text-org52b2f75">
+<p>
+Explain the purpose of this analysis.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc9e49a7" class="outline-3">
+<h3 id="orgc9e49a7">Results</h3>
+<div class="outline-text-3" id="text-orgc9e49a7">
+<ul class="org-ul">
+<li>How is the district summary affected?</li>
+<li>How is the school summary affected?</li>
+<li>How does replacing the ninth graders’ math and reading scores affect Thomas High School’s performance relative to the other schools?</li>
+<li>How does replacing the ninth-grade scores affect the following:</li>
+</ul>
+</div>
+
+<div id="outline-container-org48c8752" class="outline-4">
+<h4 id="org48c8752">Math and reading scores by grade</h4>
+<div class="outline-text-4" id="text-org48c8752">
+<p>
+Because we replaced the scores of the 9th grade with <code>NaN</code> values, we can&rsquo;t really compare the 9th grade row in the same way as we can compare the rest of the analysis results.
+</p>
+
+<p>
+If we try to use Python to make a judgement, we will probably run into an error as we could not compare <code>NaN</code> to a float as with other tests.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #339CDB;">assert</span> <span style="color: #C586C0;">abs</span>(value_modified / value_original) &lt; <span style="color: #B5CEA8; font-weight: bold;">0.01</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-org">&gt;       assert abs(value_modified / value_original) &lt; 0.01
+E       assert nan &lt; 0.01
+
+PyCitySchools_test.py:159: AssertionError
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfad60e5" class="outline-4">
+<h4 id="orgfad60e5">Scores by school spending</h4>
+<div class="outline-text-4" id="text-orgfad60e5">
+<p>
+When measuring the difference between the original dataframe and the dataframe with the scores removed, we find very small differences. So small that they don&rsquo;t show up in the formatted results, but we can see them in the tests.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #579C4C;"># </span><span style="color: #579C4C;">from PyCitySchools_test.py</span>
+<span style="color: #d4d4d4;">bins</span> = [<span style="color: #B5CEA8; font-weight: bold;">0</span>, <span style="color: #B5CEA8; font-weight: bold;">585</span>, <span style="color: #B5CEA8; font-weight: bold;">630</span>, <span style="color: #B5CEA8; font-weight: bold;">645</span>, <span style="color: #B5CEA8; font-weight: bold;">675</span>]
+<span style="color: #d4d4d4;">labels</span> = [<span style="color: #c5937c;">"&lt;$586"</span>, <span style="color: #c5937c;">"$586-630"</span>, <span style="color: #c5937c;">"$631-645"</span>, <span style="color: #c5937c;">"$646-675"</span>]
+<span style="color: #d4d4d4;">binned</span> = pd.cut(schools_df[<span style="color: #c5937c;">"budget"</span>] / schools_df[<span style="color: #c5937c;">"size"</span>], bins, labels=labels)
+complete = group_scores_by(binned, complete_parameters)
+modified = group_scores_by(binned, modified_parameters)
+compare_dataframes(complete, modified)
+</pre>
 </div>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
 <col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
 </colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">SchoolSpending</th>
+<th scope="col" class="org-right">AverageMathScore</th>
+<th scope="col" class="org-right">AverageReadingScore</th>
+<th scope="col" class="org-right">%PassingMath</th>
+<th scope="col" class="org-right">%PassingReading</th>
+<th scope="col" class="org-right">%OverallPassing</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="org-left"><a href="../readme.html">&lt;&lt;Back</a></td>
+<td class="org-left">&lt;$586</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.00000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+</tr>
+
+<tr>
+<td class="org-left">$586-630</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.00000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+</tr>
+
+<tr>
+<td class="org-left">$631-645</td>
+<td class="org-right">0.016853</td>
+<td class="org-right">-0.011788</td>
+<td class="org-right">0.02162</td>
+<td class="org-right">0.072532</td>
+<td class="org-right">0.079422</td>
+</tr>
+
+<tr>
+<td class="org-left">$646-675</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.00000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
 </tr>
 </tbody>
 </table>
 
-<div id="outline-container-org832c6f7" class="outline-2">
-<h2 id="org832c6f7">Header</h2>
+<p>
+We can say that such difference is neglectable. The rest of the results follow a similar trend, where none of the differences where over 1% (one percent).
+</p>
+</div>
 </div>
 
-<div id="outline-container-orgbbc684e" class="outline-2">
-<h2 id="orgbbc684e">Header</h2>
+<div id="outline-container-org751cb13" class="outline-4">
+<h4 id="org751cb13">Scores by school size</h4>
+<div class="outline-text-4" id="text-org751cb13">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">SchoolSize</td>
+<td class="org-right">AverageMathScore</td>
+<td class="org-right">AverageReadingScore</td>
+<td class="org-right">%PassingMath</td>
+<td class="org-right">%PassingReading</td>
+<td class="org-right">%OverallPassing</td>
+</tr>
+
+<tr>
+<td class="org-left">Small   (&lt;1000)</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.00000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+</tr>
+
+<tr>
+<td class="org-left">Medium  (1000-1999)</td>
+<td class="org-right">0.013482</td>
+<td class="org-right">-0.00943</td>
+<td class="org-right">0.017296</td>
+<td class="org-right">0.058026</td>
+<td class="org-right">0.063538</td>
+</tr>
+
+<tr>
+<td class="org-left">Large   (2000-5000)</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.00000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 
-<div id="outline-container-orgfe43612" class="outline-2">
-<h2 id="orgfe43612">Header</h2>
+<div id="outline-container-org0834247" class="outline-4">
+<h4 id="org0834247">Scores by school type</h4>
+<div class="outline-text-4" id="text-org0834247">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">SchoolType</th>
+<th scope="col" class="org-right">AverageMathScore</th>
+<th scope="col" class="org-right">AverageReadingScore</th>
+<th scope="col" class="org-right">%PassingMath</th>
+<th scope="col" class="org-right">%PassingReading</th>
+<th scope="col" class="org-right">%OverallPassing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Charter</td>
+<td class="org-right">0.008426</td>
+<td class="org-right">-0.005894</td>
+<td class="org-right">0.01081</td>
+<td class="org-right">0.036266</td>
+<td class="org-right">0.039711</td>
+</tr>
+
+<tr>
+<td class="org-left">District</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.00000</td>
+<td class="org-right">0.000000</td>
+<td class="org-right">0.000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfcfcae4" class="outline-3">
+<h3 id="orgfcfcae4">Summary</h3>
+<div class="outline-text-3" id="text-orgfcfcae4">
+<p>
+Summarize four changes in the updated school district analysis after reading and math scores for the ninth grade at Thomas High School have been replaced with NaNs.
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Alberto Valdez</p>
-<p class="date">Created: 2022-07-20 Wed 00:49</p>
+<p class="date">Created: 2022-07-26 Tue 01:12</p>
 </div>
 </body>
 </html>

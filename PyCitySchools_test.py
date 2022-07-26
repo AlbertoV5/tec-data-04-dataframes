@@ -22,7 +22,7 @@ import pytest
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
-STUDENTS_PATH = Path("resources") / "students_complete.csv"
+STUDENTS_PATH = Path("resources") / "clean_students_complete.csv"
 SCHOOLS_PATH = Path("resources") / "schools_complete.csv"
 SCHOOL_NAME = "school_name"
 STUDENT_NAME = "student_name"
@@ -160,7 +160,6 @@ def compare_dataframes(original: pd.DataFrame, modified: pd.DataFrame):
             if percent != 0:
                 msg = f"{col_diff} DIFFERENCE: {100*percent:.2f}%"
                 log.info(msg)
-    print(difference)
     log.info(difference)
 
 
