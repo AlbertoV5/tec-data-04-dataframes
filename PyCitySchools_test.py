@@ -110,6 +110,36 @@ def modified_parameters(modified_df):
     return get_parameters(modified_df)
 
 
+def get_schools_average_score_per(
+    df: pd.DataFrame, column: str, value: str, score: str
+) -> pd.Series:
+    """Find a given column's value and return a series of averages grouped by school name."""
+    new_df = df.loc[df[column] == value].groupby("school_name").mean()[score]
+    new_df.index.name = ""
+    return new_df
+
+
+def get_scores_per_grade(df: pd.DataFrame):
+    math_scores = pd.DataFrame(
+        {
+            grade: get_schools_average_score_per(df, "grade", grade, MATH_SCORE)
+            for grade in ("9th", "10th", "11th", "12th")
+        }
+    )
+    reading_scores = pd.DataFrame(
+        {
+            grade: get_schools_average_score_per(df, "grade", grade, READING_SCORE)
+            for grade in ("9th", "10th", "11th", "12th")
+        }
+    )
+    return math_scores.merge(
+        reading_scores,
+        left_index=True,
+        right_index=True,
+        suffixes=(f"_{MATH_SCORE}", f"_{READING_SCORE}"),
+    )
+
+
 def group_scores_by(binned_series: pd.Series, parameters) -> pd.DataFrame:
     """Obtains the averages and percentages of scores and groups them
     in bins."""
@@ -132,6 +162,23 @@ def compare_dataframes(original: pd.DataFrame, modified: pd.DataFrame):
                 log.info(msg)
     print(difference)
     log.info(difference)
+
+
+##########
+# TESTS
+##########
+
+
+def test_school_grades(complete_df: pd.DataFrame, modified_df: pd.DataFrame):
+    """
+    Catch the AssertionError that happens when comparing NaN values.
+    Result:
+        PyCitySchools_test.py::test_school_grades PASSED
+    """
+    original = get_scores_per_grade(complete_df)
+    modified = get_scores_per_grade(modified_df)
+    with pytest.raises(AssertionError):
+        compare_dataframes(original, modified)
 
 
 def test_school_spending(
