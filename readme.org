@@ -37,9 +37,7 @@ pytest==7.1.2
 
 The District Summary was not heavily affected by the missing data. We replaced all of the scores of the 9th grade of Thomas High School with =NaN= values. Even after that, the averages and percentages by school types, sizes and spending changed by 1% or less.
 
-| Total Schools | Total Students | Total Budget   | Average Math Score | Average Reading Score | % Passing Math | % Passing Reading | % Overall Passing |
-|---------------+----------------+----------------+--------------------+-----------------------+----------------+-------------------+-------------------|
-|            15 |          39170 | $24,649,428.00 |               78.9 |                  81.9 |             75 |                86 |                65 |
+[[./resources/district_summary.png]]
 
 In our previous analysis, the Average Math Score was =79=. The rest of the values, once formatted, stay the same. However, the School Summary was affected in two crucial ways. In order to find the effects of the missing data, we can design a few tests to compare them exhaustively.
 
@@ -105,6 +103,28 @@ A negative value means that the original result had the school ranked higher.
 
 This tells us that, in the original data, Thomas High School was =#1= in =%PassingReading= and =Top 5= in =AverageMathScore=. This is the single most important change in the results of the analysis, as school rankings can influence funding, student enrollment and many other benefits.
 
+Ranking of Original % Passing Reading
+|                      | % Passing Reading | rank |
+|----------------------+-------------------+------|
+| *Thomas High School* |      *97.308869*  |  *1* |
+| Griffin High School  |         97.138965 |    2 |
+| Cabrera High School  |         97.039828 |    3 |
+| Wright High School   |         96.611111 |    4 |
+| Wilson High School   |         96.539641 |    5 |
+
+Ranking of Modified % Passing Reading
+|                      | % Passing Reading | rank |
+|----------------------+-------------------+------|
+| Griffin High School  |         97.138965 |    1 |
+| Cabrera High School  |         97.039828 |    2 |
+| *Thomas High School* |       *97.018739* |  *3* |
+| Wright High School   |         96.611111 |    4 |
+| Wilson High School   |         96.539641 |    5 |
+
+Here is how the testing looks like.
+
+[[./resources/tests.png]]
+
 Now that we have the code to find the differences on the results, we can explore the rest of the School Analysis parts for sake of completition. Positive values mean that the original results were higher.
 
 *** Difference of Scores by School Spending
@@ -146,9 +166,12 @@ PyCitySchools_test.py:159: AssertionError
 #+end_src
 
 ** Summary
-Summarize four changes in the updated school district analysis after reading and math scores for the ninth grade at Thomas High School have been replaced with NaNs.
 
-1. The biggest change was that Thomas High School was Ranked =#1= in Passing Reading Percentage before removing the data, and moved to =#3= once we replaced the scores with =NaN=.
-2. Another important change was that Thomas High School was =Top 5= in Average Math Score before removing the data, and moved to =#6= once we replaced the scores with =NaN=.
-3. The whole District Average Math Score decreased by =1%= after removing the data.
-4. The School Summary was not heavily affected as the schools are shown individually, however, Thomas High School affects the Binned results because it is grouped with the rest of the =Charter=, =Medium Sized= and =$631-645= groups. The =Spending= table being the most important one due to monetary implications.
+1. The biggest difference was that Thomas High School was Ranked =#1= in Passing Reading Percentage before removing the data, and moved to =#3= once we replaced the scores with =NaN=. Because we removed the values and didn't replace them with new ones, we are seeing the data without the 9th grade scores, but we can presume that, if we were to have the hypothetical "correct data",  it would be closer to the average of the rest of the grades, specially to the schools in the same bins.
+2. Another important change was that Thomas High School was =Top 5= in Average Math Score before removing the data, and moved to =#6= once we replaced the scores with =NaN=. What is most interesting is that the Overall Percentage didn't change that much, as we saw increases in both reading and math scores. We can assume that the curve applied to the reading scores helped mostly the students that didn't pass the assignature initially.
+3. The whole District Average Math Score decreased by =1%= after removing the data, some of it can be the formatting of the data to string as the rest of the values that we inspected more closely had changes under 1%, which in this case was an arbitrary parameter for testing that the differences wouldn't be too big.
+4. The School Summary was not heavily affected as the schools are shown individually, however, Thomas High School affects the Binned results because it is grouped with the rest of the =Charter=, =Medium Sized= and =$631-645= groups. All of the differences are important but the =Spending= table may be the most relevant in case of requesting funding or when doing financial analysis.
+
+** Closing Thoughts
+
+Thanks to Python and Pandas we were able to process the data once more in a streamlined way. We can also run as many transformations, comparisons and tests with our DataFrames as we want in order to explore the limits of our data. The possibility of doing so programmatically allows us to spend more time doing many iterations of how we group and visualize the data and can lead us to revealing results. In this case, being able to compare the schools in different groups and rankings uncovered the effects of the altered data in our original assessment.
