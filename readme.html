@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-26 Tue 16:23 -->
+<!-- 2022-07-26 Tue 16:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Challenge</title>
@@ -23,47 +23,47 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org819281c">School District Analysis</a>
+<li><a href="#orgcf1a229">School District Analysis</a>
 <ul>
-<li><a href="#org07c5289">Overview</a></li>
-<li><a href="#orge4db48a">Tools and Requirements</a></li>
-<li><a href="#org9622c54">Results</a>
+<li><a href="#org31b682b">Overview</a></li>
+<li><a href="#orge3505d1">Tools and Requirements</a></li>
+<li><a href="#org306f9a4">Results</a>
 <ul>
-<li><a href="#orgf00203c">Thomas High School Difference</a></li>
-<li><a href="#org5f7316b">Difference of Scores by School Spending</a></li>
-<li><a href="#org3693f13">Difference of Scores by School Size</a></li>
-<li><a href="#orgc4e1a0d">Difference of Scores by School Type</a></li>
-<li><a href="#orgf6b16c8">Difference of Math and Reading scores by grade</a></li>
+<li><a href="#org565a031">Thomas High School Difference</a></li>
+<li><a href="#orga79ec4b">Difference of Scores by School Spending</a></li>
+<li><a href="#org692fd0c">Difference of Scores by School Size</a></li>
+<li><a href="#org9d7bb16">Difference of Scores by School Type</a></li>
+<li><a href="#org86ddfd6">Difference of Math and Reading scores by grade</a></li>
 </ul>
 </li>
-<li><a href="#org620fb11">Summary</a></li>
-<li><a href="#org89a4769">Closing Thoughts</a></li>
+<li><a href="#orgdf7374d">Summary</a></li>
+<li><a href="#org15ced8c">Closing Thoughts</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org819281c" class="outline-2">
-<h2 id="org819281c">School District Analysis</h2>
-<div class="outline-text-2" id="text-org819281c">
+<div id="outline-container-orgcf1a229" class="outline-2">
+<h2 id="orgcf1a229">School District Analysis</h2>
+<div class="outline-text-2" id="text-orgcf1a229">
 </div>
-<div id="outline-container-org07c5289" class="outline-3">
-<h3 id="org07c5289">Overview</h3>
-<div class="outline-text-3" id="text-org07c5289">
+<div id="outline-container-org31b682b" class="outline-3">
+<h3 id="org31b682b">Overview</h3>
+<div class="outline-text-3" id="text-org31b682b">
 <p>
 Previously, we did an analysis of the student performance and funding of various schools. The results were very informative as we got to see the average scores by grade, school type, school size, etc. However, we need to repeat the process as we were informed that some of the data is invalid as some grades seem to be altered.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orge4db48a" class="outline-3">
-<h3 id="orge4db48a">Tools and Requirements</h3>
-<div class="outline-text-3" id="text-orge4db48a">
+<div id="outline-container-orge3505d1" class="outline-3">
+<h3 id="orge3505d1">Tools and Requirements</h3>
+<div class="outline-text-3" id="text-orge3505d1">
 <p>
 <code>Python 3.7.13</code>
 </p>
-<pre class="example" id="orge0ba93d">
+<pre class="example" id="orga30c56d">
 numpy==1.21.6
 pandas==1.3.5
 pytest==7.1.2
@@ -71,15 +71,15 @@ pytest==7.1.2
 </div>
 </div>
 
-<div id="outline-container-org9622c54" class="outline-3">
-<h3 id="org9622c54">Results</h3>
-<div class="outline-text-3" id="text-org9622c54">
+<div id="outline-container-org306f9a4" class="outline-3">
+<h3 id="org306f9a4">Results</h3>
+<div class="outline-text-3" id="text-org306f9a4">
 <p>
 The District Summary was not heavily affected by the missing data. We replaced all of the scores of the 9th grade of Thomas High School with <code>NaN</code> values. Even after that, the averages and percentages by school types, sizes and spending changed by 1% or less.
 </p>
 
 
-<div id="org17d6271" class="figure">
+<div id="org0509988" class="figure">
 <p><img src="./resources/district_summary.png" alt="district_summary.png" />
 </p>
 </div>
@@ -105,11 +105,16 @@ In our previous analysis, the Average Math Score was <code>79</code>. The rest o
     log.info(difference)
 </pre>
 </div>
+
+<p>
+Here is how the tests looks like.
+<img src="./resources/tests2.png" alt="tests2.png" />
+</p>
 </div>
 
-<div id="outline-container-orgf00203c" class="outline-4">
-<h4 id="orgf00203c">Thomas High School Difference</h4>
-<div class="outline-text-4" id="text-orgf00203c">
+<div id="outline-container-org565a031" class="outline-4">
+<h4 id="org565a031">Thomas High School Difference</h4>
+<div class="outline-text-4" id="text-org565a031">
 <p>
 A positive value means the that original result had a higher score.
 </p>
@@ -129,16 +134,17 @@ A positive value means the that original result had a higher score.
 
 <col  class="org-right" />
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="org-left">&#xa0;</td>
-<td class="org-right">AverageMathScore</td>
-<td class="org-right">AverageReadingScore</td>
-<td class="org-right">%PassingMath</td>
-<td class="org-right">%PassingReading</td>
-<td class="org-right">%OverallPassing</td>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-right">AverageMathScore</th>
+<th scope="col" class="org-right">AverageReadingScore</th>
+<th scope="col" class="org-right">%PassingMath</th>
+<th scope="col" class="org-right">%PassingReading</th>
+<th scope="col" class="org-right">%OverallPassing</th>
 </tr>
-
+</thead>
+<tbody>
 <tr>
 <td class="org-left">Thomas High School</td>
 <td class="org-right">0.067412</td>
@@ -340,15 +346,6 @@ Ranking of Modified % Passing Reading
 </tbody>
 </table>
 
-<p>
-Here is how the testing looks like.
-</p>
-
-
-<div id="org069b71b" class="figure">
-<p><img src="./resources/tests.png" alt="tests.png" />
-</p>
-</div>
 
 <p>
 Now that we have the code to find the differences on the results, we can explore the rest of the School Analysis parts for sake of completition. Positive values mean that the original results were higher.
@@ -356,9 +353,9 @@ Now that we have the code to find the differences on the results, we can explore
 </div>
 </div>
 
-<div id="outline-container-org5f7316b" class="outline-4">
-<h4 id="org5f7316b">Difference of Scores by School Spending</h4>
-<div class="outline-text-4" id="text-org5f7316b">
+<div id="outline-container-orga79ec4b" class="outline-4">
+<h4 id="orga79ec4b">Difference of Scores by School Spending</h4>
+<div class="outline-text-4" id="text-orga79ec4b">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -426,9 +423,9 @@ Now that we have the code to find the differences on the results, we can explore
 </div>
 </div>
 
-<div id="outline-container-org3693f13" class="outline-4">
-<h4 id="org3693f13">Difference of Scores by School Size</h4>
-<div class="outline-text-4" id="text-org3693f13">
+<div id="outline-container-org692fd0c" class="outline-4">
+<h4 id="org692fd0c">Difference of Scores by School Size</h4>
+<div class="outline-text-4" id="text-org692fd0c">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -487,9 +484,9 @@ Now that we have the code to find the differences on the results, we can explore
 </div>
 </div>
 
-<div id="outline-container-orgc4e1a0d" class="outline-4">
-<h4 id="orgc4e1a0d">Difference of Scores by School Type</h4>
-<div class="outline-text-4" id="text-orgc4e1a0d">
+<div id="outline-container-org9d7bb16" class="outline-4">
+<h4 id="org9d7bb16">Difference of Scores by School Type</h4>
+<div class="outline-text-4" id="text-org9d7bb16">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -539,9 +536,9 @@ Now that we have the code to find the differences on the results, we can explore
 </div>
 </div>
 
-<div id="outline-container-orgf6b16c8" class="outline-4">
-<h4 id="orgf6b16c8">Difference of Math and Reading scores by grade</h4>
-<div class="outline-text-4" id="text-orgf6b16c8">
+<div id="outline-container-org86ddfd6" class="outline-4">
+<h4 id="org86ddfd6">Difference of Math and Reading scores by grade</h4>
+<div class="outline-text-4" id="text-org86ddfd6">
 <p>
 Because we replaced the scores of the 9th grade with <code>NaN</code> values, we can&rsquo;t really compare the 9th grade row in the same way as we can compare the rest of the analysis results. If we try to use Python to make a judgement, we will probably run into an error as we could not compare <code>NaN</code> to a <code>float</code> like with other tests.
 </p>
@@ -562,9 +559,9 @@ PyCitySchools_test.py:159: AssertionError
 </div>
 </div>
 
-<div id="outline-container-org620fb11" class="outline-3">
-<h3 id="org620fb11">Summary</h3>
-<div class="outline-text-3" id="text-org620fb11">
+<div id="outline-container-orgdf7374d" class="outline-3">
+<h3 id="orgdf7374d">Summary</h3>
+<div class="outline-text-3" id="text-orgdf7374d">
 <ol class="org-ol">
 <li>The biggest difference was that Thomas High School was Ranked <code>#1</code> in Passing Reading Percentage before removing the data, and moved to <code>#3</code> once we replaced the scores with <code>NaN</code>. Because we removed the values and didn&rsquo;t replace them with new ones, we are seeing the data without the 9th grade scores, but we can presume that, if we were to have the hypothetical &ldquo;correct data&rdquo;,  it would be closer to the average of the rest of the grades, specially to the schools in the same bins.</li>
 <li>Another important change was that Thomas High School was <code>Top 5</code> in Average Math Score before removing the data, and moved to <code>#6</code> once we replaced the scores with <code>NaN</code>. What is most interesting is that the Overall Percentage didn&rsquo;t change that much, as we saw increases in both reading and math scores. We can assume that the curve applied to the reading scores helped mostly the students that didn&rsquo;t pass the assignature initially.</li>
@@ -574,9 +571,9 @@ PyCitySchools_test.py:159: AssertionError
 </div>
 </div>
 
-<div id="outline-container-org89a4769" class="outline-3">
-<h3 id="org89a4769">Closing Thoughts</h3>
-<div class="outline-text-3" id="text-org89a4769">
+<div id="outline-container-org15ced8c" class="outline-3">
+<h3 id="org15ced8c">Closing Thoughts</h3>
+<div class="outline-text-3" id="text-org15ced8c">
 <p>
 Thanks to Python and Pandas we were able to process the data once more in a streamlined way. We can also run as many transformations, comparisons and tests with our DataFrames as we want in order to explore the limits of our data. The possibility of doing so programmatically allows us to spend more time doing many iterations of how we group and visualize the data and can lead us to revealing results. In this case, being able to compare the schools in different groups and rankings uncovered the effects of the altered data in our original assessment.
 </p>
@@ -586,7 +583,7 @@ Thanks to Python and Pandas we were able to process the data once more in a stre
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Alberto Valdez</p>
-<p class="date">Created: 2022-07-26 Tue 16:23</p>
+<p class="date">Created: 2022-07-26 Tue 16:35</p>
 </div>
 </body>
 </html>

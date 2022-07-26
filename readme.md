@@ -40,12 +40,15 @@ def compare_dataframes(original: pd.DataFrame, modified: pd.DataFrame):
     log.info(difference)
 ```
 
+Here is how the tests looks like. ![img](./resources/tests2.png)
+
 
 ### Thomas High School Difference
 
 A positive value means the that original result had a higher score.
 
 |                    | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
+|------------------ |---------------- |------------------- |------------ |--------------- |--------------- |
 | Thomas High School | 0.067412         | -0.047152           | 0.086481     | 0.290129        | 0.317689        |
 
 We can suspect that the original Thomas High School 9th grade scores were curved to help more students pass the assignatures. The difference is very small, however, when comparing the rankings of each school by all columns, we find two problems.
@@ -110,10 +113,6 @@ Ranking of Modified % Passing Reading
 | **Thomas High School** | **97.018739**     | **3** |
 | Wright High School     | 96.611111         | 4     |
 | Wilson High School     | 96.539641         | 5     |
-
-Here is how the testing looks like.
-
-![img](./resources/tests.png)
 
 Now that we have the code to find the differences on the results, we can explore the rest of the School Analysis parts for sake of completition. Positive values mean that the original results were higher.
 
