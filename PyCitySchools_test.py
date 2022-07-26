@@ -150,15 +150,16 @@ def group_scores_by(binned_series: pd.Series, parameters) -> pd.DataFrame:
 
 
 def compare_dataframes(original: pd.DataFrame, modified: pd.DataFrame):
-    """Substract modified DF from original. Assert that the results are smaller than 1%."""
+    """Substract modified DF from original.
+    Check that the values in the difference are smaller than 1%."""
     assert original.size == modified.size
     difference = original - modified
     for col_diff, col in zip(difference, original):
         for val_diff, val in zip(difference[col_diff], original[col]):
-            percent = abs(val_diff / val)
-            assert percent < 0.01
-            if percent != 0:
-                msg = f"{col_diff} DIFFERENCE: {100*percent:.2f}%"
+            ratio = abs(val_diff / val)
+            assert ratio < 0.01
+            if ratio != 0:
+                msg = f"{col_diff} DIFFERENCE: {100*ratio:.2f}%"
                 log.info(msg)
     log.info(difference)
 
@@ -171,6 +172,7 @@ def compare_dataframes(original: pd.DataFrame, modified: pd.DataFrame):
 def test_school_grades(complete_df: pd.DataFrame, modified_df: pd.DataFrame):
     """
     Catch the AssertionError that happens when comparing NaN values.
+
     Result:
         PyCitySchools_test.py::test_school_grades PASSED
     """
@@ -185,6 +187,7 @@ def test_school_spending(
 ):
     """
     Measure differences on spending results.
+
     Result:
                 Average Math Score  Average Reading Score  % Passing Math  % Passing Reading  % Overall Passing
 
@@ -208,6 +211,7 @@ def test_school_sizes(
 ):
     """
     Measure differences on school sizes results.
+
     Result:
                         Average Math Score  Average Reading Score  % Passing Math  % Passing Reading  % Overall Passing
 
@@ -228,7 +232,8 @@ def test_school_types(
 ):
     """
     Measure differences on school types results.
-    Results:
+
+    Result:
                 Average Math Score  Average Reading Score  % Passing Math  % Passing Reading  % Overall Passing
 
     Charter             0.008426              -0.005894         0.01081           0.036266           0.039711
@@ -237,6 +242,58 @@ def test_school_types(
     complete = group_scores_by(schools_df["type"], complete_parameters)
     modified = group_scores_by(schools_df["type"], modified_parameters)
     compare_dataframes(complete, modified)
+
+
+def test_ths_grades(complete_parameters: dict, modified_parameters: dict):
+    """
+    Find if Thomas High School scores changed dramatically after the change.
+
+    Result:
+                        Average Math Score  Average Reading Score  % Passing Math  % Passing Reading  % Overall Passing
+
+    Thomas High School            0.067412              -0.047152        0.086481           0.290129           0.317689
+    """
+    original_df = pd.DataFrame({**complete_parameters})
+    modified_df = pd.DataFrame({**modified_parameters})
+    original_ths = original_df.loc[["Thomas High School"]]
+    modified_ths = modified_df.loc[["Thomas High School"]]
+    original_ths.index.name = ""
+    modified_ths.index.name = ""
+    compare_dataframes(original_ths, modified_ths)
+
+
+def test_ths_ranks(complete_parameters: dict, modified_parameters: dict):
+    """
+    Find if Thomas High School rank amongst other schools changed.
+
+    Result:
+        Thomas High School rank moved from 4 to 6 in Average Math Score.
+        Thomas High School rank moved from 1 to 3 in % Passing Reading.
+                        Average Math Score  Average Reading Score  % Passing Math  % Passing Reading  % Overall Passing
+
+    Thomas High School                  -2                      0               0                 -2                  0
+
+    """
+    original_df = pd.DataFrame(complete_parameters)
+    modified_df = pd.DataFrame(modified_parameters)
+    size = complete_parameters["Average Math Score"].size
+    rank_difference = pd.DataFrame()
+    for category in complete_parameters:
+        original = original_df.sort_values(by=category, ascending=False)
+        modified = modified_df.sort_values(by=category, ascending=False)
+        original["rank"] = range(1, size + 1)
+        modified["rank"] = range(1, size + 1)
+        original_rank = original.loc[original.index == "Thomas High School", "rank"]
+        modified_rank = modified.loc[modified.index == "Thomas High School", "rank"]
+        rank_shift = original_rank - modified_rank
+        if rank_shift.values[0] != 0:
+            log.info(
+f"""Thomas High School rank moved from {original_rank.values[0]} to {modified_rank.values[0]} in {category}."""
+            )
+        rank_difference[category] = rank_shift
+
+    rank_difference.index.name = ""
+    log.info(rank_difference)
 
 
 def main():

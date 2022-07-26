@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-26 Tue 01:12 -->
+<!-- 2022-07-26 Tue 14:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Challenge</title>
@@ -23,89 +23,265 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org327ff6d">School District Analysis</a>
+<li><a href="#org5c22ee4">School District Analysis</a>
 <ul>
-<li><a href="#org52b2f75">Overview</a></li>
-<li><a href="#orgc9e49a7">Results</a>
+<li><a href="#org6c3ddc8">Overview</a></li>
+<li><a href="#orgf3f5c5f">Tools and Requirements</a></li>
+<li><a href="#org7f78965">Results</a>
 <ul>
-<li><a href="#org48c8752">Math and reading scores by grade</a></li>
-<li><a href="#orgfad60e5">Scores by school spending</a></li>
-<li><a href="#org751cb13">Scores by school size</a></li>
-<li><a href="#org0834247">Scores by school type</a></li>
+<li><a href="#org280e27a">Thomas High School Difference</a></li>
+<li><a href="#orgd0e0306">Difference of Scores by School Spending</a></li>
+<li><a href="#org1e54187">Difference of Scores by School Size</a></li>
+<li><a href="#org3de2a9c">Difference of Scores by School Type</a></li>
+<li><a href="#orgfbd0d07">Difference of Math and Reading scores by grade</a></li>
 </ul>
 </li>
-<li><a href="#orgfcfcae4">Summary</a></li>
+<li><a href="#org0f11fd9">Summary</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org327ff6d" class="outline-2">
-<h2 id="org327ff6d">School District Analysis</h2>
-<div class="outline-text-2" id="text-org327ff6d">
+<div id="outline-container-org5c22ee4" class="outline-2">
+<h2 id="org5c22ee4">School District Analysis</h2>
+<div class="outline-text-2" id="text-org5c22ee4">
 </div>
-<div id="outline-container-org52b2f75" class="outline-3">
-<h3 id="org52b2f75">Overview</h3>
-<div class="outline-text-3" id="text-org52b2f75">
+<div id="outline-container-org6c3ddc8" class="outline-3">
+<h3 id="org6c3ddc8">Overview</h3>
+<div class="outline-text-3" id="text-org6c3ddc8">
 <p>
-Explain the purpose of this analysis.
+Previously, we did an analysis of the student performance and funding of various schools. The results were very informative as we got to see the average scores by grade, school type, school size, etc. However, we need to repeat the process as we were informed that some of the data is invalid as some grades seem to be altered.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc9e49a7" class="outline-3">
-<h3 id="orgc9e49a7">Results</h3>
-<div class="outline-text-3" id="text-orgc9e49a7">
-<ul class="org-ul">
-<li>How is the district summary affected?</li>
-<li>How is the school summary affected?</li>
-<li>How does replacing the ninth graders’ math and reading scores affect Thomas High School’s performance relative to the other schools?</li>
-<li>How does replacing the ninth-grade scores affect the following:</li>
-</ul>
-</div>
 
-<div id="outline-container-org48c8752" class="outline-4">
-<h4 id="org48c8752">Math and reading scores by grade</h4>
-<div class="outline-text-4" id="text-org48c8752">
+<div id="outline-container-orgf3f5c5f" class="outline-3">
+<h3 id="orgf3f5c5f">Tools and Requirements</h3>
+<div class="outline-text-3" id="text-orgf3f5c5f">
 <p>
-Because we replaced the scores of the 9th grade with <code>NaN</code> values, we can&rsquo;t really compare the 9th grade row in the same way as we can compare the rest of the analysis results.
+<code>Python 3.7.13</code>
 </p>
-
-<p>
-If we try to use Python to make a judgement, we will probably run into an error as we could not compare <code>NaN</code> to a float as with other tests.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-python"><span style="color: #339CDB;">assert</span> <span style="color: #C586C0;">abs</span>(value_modified / value_original) &lt; <span style="color: #B5CEA8; font-weight: bold;">0.01</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-org">&gt;       assert abs(value_modified / value_original) &lt; 0.01
-E       assert nan &lt; 0.01
-
-PyCitySchools_test.py:159: AssertionError
+<pre class="example" id="org6bdb10d">
+numpy==1.21.6
+pandas==1.3.5
+pytest==7.1.2
 </pre>
 </div>
 </div>
+
+<div id="outline-container-org7f78965" class="outline-3">
+<h3 id="org7f78965">Results</h3>
+<div class="outline-text-3" id="text-org7f78965">
+<p>
+The District Summary was not heavily affected by the missing data. We replaced all of the scores of the 9th grade of Thomas High School with <code>NaN</code> values. Even after that, the averages and percentages by school types, sizes and spending changed by 1% or less.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Total Schools</th>
+<th scope="col" class="org-right">Total Students</th>
+<th scope="col" class="org-left">Total Budget</th>
+<th scope="col" class="org-right">Average Math Score</th>
+<th scope="col" class="org-right">Average Reading Score</th>
+<th scope="col" class="org-right">% Passing Math</th>
+<th scope="col" class="org-right">% Passing Reading</th>
+<th scope="col" class="org-right">% Overall Passing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">15</td>
+<td class="org-right">39170</td>
+<td class="org-left">$24,649,428.00</td>
+<td class="org-right">78.9</td>
+<td class="org-right">81.9</td>
+<td class="org-right">75</td>
+<td class="org-right">86</td>
+<td class="org-right">65</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+In our previous analysis, the Average Math Score was <code>79</code>. The rest of the values, once formatted, stay the same. However, the School Summary was affected in two crucial ways. In order to find the effects of the missing data, we can design a few tests to compare them exhaustively.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #579C4C;"># </span><span style="color: #579C4C;">from PyCitySchools_test.py</span>
+<span style="color: #339CDB;">def</span> <span style="color: #D9DAA2;">compare_dataframes</span>(original: pd.DataFrame, modified: pd.DataFrame):
+    <span style="color: #777778;">"""Substract modified DF from original.</span>
+<span style="color: #777778;">    Check that the values in the difference are smaller than 1%."""</span>
+    <span style="color: #339CDB;">assert</span> original.size == modified.size
+    difference = original - modified
+    <span style="color: #339CDB;">for</span> col_diff, col <span style="color: #339CDB;">in</span> <span style="color: #C586C0;">zip</span>(difference, original):
+        <span style="color: #339CDB;">for</span> val_diff, val <span style="color: #339CDB;">in</span> <span style="color: #C586C0;">zip</span>(difference[col_diff], original[col]):
+            ratio = <span style="color: #C586C0;">abs</span>(val_diff / val)
+            <span style="color: #339CDB;">assert</span> ratio &lt; <span style="color: #B5CEA8; font-weight: bold;">0.01</span>
+            <span style="color: #339CDB;">if</span> ratio != <span style="color: #B5CEA8; font-weight: bold;">0</span>:
+                msg = f<span style="color: #c5937c;">"</span>{col_diff}<span style="color: #c5937c;"> DIFFERENCE: </span>{100*ratio:.2f}<span style="color: #c5937c;">%"</span>
+                log.info(msg)
+    log.info(difference)
+</pre>
+</div>
 </div>
 
-<div id="outline-container-orgfad60e5" class="outline-4">
-<h4 id="orgfad60e5">Scores by school spending</h4>
-<div class="outline-text-4" id="text-orgfad60e5">
+<div id="outline-container-org280e27a" class="outline-4">
+<h4 id="org280e27a">Thomas High School Difference</h4>
+<div class="outline-text-4" id="text-org280e27a">
 <p>
-When measuring the difference between the original dataframe and the dataframe with the scores removed, we find very small differences. So small that they don&rsquo;t show up in the formatted results, but we can see them in the tests.
+A positive value means the that original result had a higher score.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">AverageMathScore</td>
+<td class="org-right">AverageReadingScore</td>
+<td class="org-right">%PassingMath</td>
+<td class="org-right">%PassingReading</td>
+<td class="org-right">%OverallPassing</td>
+</tr>
+
+<tr>
+<td class="org-left">Thomas High School</td>
+<td class="org-right">0.067412</td>
+<td class="org-right">-0.047152</td>
+<td class="org-right">0.086481</td>
+<td class="org-right">0.290129</td>
+<td class="org-right">0.317689</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+We can suspect that the original Thomas High School 9th grade scores were curved to help more students pass the assignatures. The difference is very small, however, when comparing the rankings of each school by all columns, we find two problems.
+</p>
+<div class="org-src-container">
+<pre class="src src-org">Thomas High School rank moved from 4 to 6 in Average Math Score.
+Thomas High School rank moved from 1 to 3 in % Passing Reading.
+</pre>
+</div>
+
+<p>
+This is the code we can use to find the ranking differences.
 </p>
 <div class="org-src-container">
 <pre class="src src-python"><span style="color: #579C4C;"># </span><span style="color: #579C4C;">from PyCitySchools_test.py</span>
-<span style="color: #d4d4d4;">bins</span> = [<span style="color: #B5CEA8; font-weight: bold;">0</span>, <span style="color: #B5CEA8; font-weight: bold;">585</span>, <span style="color: #B5CEA8; font-weight: bold;">630</span>, <span style="color: #B5CEA8; font-weight: bold;">645</span>, <span style="color: #B5CEA8; font-weight: bold;">675</span>]
-<span style="color: #d4d4d4;">labels</span> = [<span style="color: #c5937c;">"&lt;$586"</span>, <span style="color: #c5937c;">"$586-630"</span>, <span style="color: #c5937c;">"$631-645"</span>, <span style="color: #c5937c;">"$646-675"</span>]
-<span style="color: #d4d4d4;">binned</span> = pd.cut(schools_df[<span style="color: #c5937c;">"budget"</span>] / schools_df[<span style="color: #c5937c;">"size"</span>], bins, labels=labels)
-complete = group_scores_by(binned, complete_parameters)
-modified = group_scores_by(binned, modified_parameters)
-compare_dataframes(complete, modified)
+<span style="color: #339CDB;">def</span> <span style="color: #D9DAA2;">test_ths_ranks</span>(<span style="color: #d4d4d4;">complete_parameters</span>: <span style="color: #C586C0;">dict</span>, modified_parameters: <span style="color: #C586C0;">dict</span>):
+    <span style="color: #777778;">"""Find if Thomas High School rank amongst other schools changed."""</span>
+    original_df = pd.DataFrame(complete_parameters)
+    <span style="color: #d4d4d4;">modified_df</span> = pd.DataFrame(modified_parameters)
+    <span style="color: #d4d4d4;">size</span> = complete_parameters[<span style="color: #c5937c;">"Average Math Score"</span>].size
+    <span style="color: #d4d4d4;">rank_difference</span> = pd.DataFrame()
+    <span style="color: #339CDB;">for</span> category <span style="color: #339CDB;">in</span> <span style="color: #d4d4d4;">complete_parameters</span>:
+        original = original_df.sort_values(by=category, ascending=<span style="color: #339CDB;">False</span>)
+        modified = modified_df.sort_values(by=category, ascending=<span style="color: #339CDB;">False</span>)
+        original[<span style="color: #c5937c;">"rank"</span>] = <span style="color: #C586C0;">range</span>(<span style="color: #B5CEA8; font-weight: bold;">1</span>, size + <span style="color: #B5CEA8; font-weight: bold;">1</span>)
+        modified[<span style="color: #c5937c;">"rank"</span>] = <span style="color: #C586C0;">range</span>(<span style="color: #B5CEA8; font-weight: bold;">1</span>, size + <span style="color: #B5CEA8; font-weight: bold;">1</span>)
+        original_rank = original.loc[original.index == <span style="color: #c5937c;">"Thomas High School"</span>, <span style="color: #c5937c;">"rank"</span>]
+        modified_rank = modified.loc[modified.index == <span style="color: #c5937c;">"Thomas High School"</span>, <span style="color: #c5937c;">"rank"</span>]
+        rank_shift = original_rank - modified_rank
+        <span style="color: #339CDB;">if</span> rank_shift.values[<span style="color: #B5CEA8; font-weight: bold;">0</span>] != <span style="color: #B5CEA8; font-weight: bold;">0</span>:
+            log.info(
+f<span style="color: #c5937c;">"""Thomas High School rank moved from {original_rank.values[0]} to {modified_rank.values[0]} in {category}."""</span>
+            )
+        rank_difference[<span style="color: #d4d4d4;">category</span>] = rank_shift
+
+    rank_difference.index.name = <span style="color: #c5937c;">""</span>
+    log.info(rank_difference)
 </pre>
 </div>
+
+<p>
+A negative value means that the original result had the school ranked higher.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-right">AverageMathScore</th>
+<th scope="col" class="org-right">AverageReadingScore</th>
+<th scope="col" class="org-right">%PassingMath</th>
+<th scope="col" class="org-right">%PassingReading</th>
+<th scope="col" class="org-right">%OverallPassing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Thomas High School</td>
+<td class="org-right">-2</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">-2</td>
+<td class="org-right">0</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+This tells us that, in the original data, Thomas High School was <code>#1</code> in <code>%PassingReading</code> and <code>Top 5</code> in <code>AverageMathScore</code>. This is the single most important change in the results of the analysis, as school rankings can influence funding, student enrollment and many other benefits.
+</p>
+
+<p>
+Now that we have the code to find the differences on the results, we can explore the rest of the School Analysis parts for sake of completition. Positive values mean that the original results were higher.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd0e0306" class="outline-4">
+<h4 id="orgd0e0306">Difference of Scores by School Spending</h4>
+<div class="outline-text-4" id="text-orgd0e0306">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -170,16 +346,12 @@ compare_dataframes(complete, modified)
 </tr>
 </tbody>
 </table>
-
-<p>
-We can say that such difference is neglectable. The rest of the results follow a similar trend, where none of the differences where over 1% (one percent).
-</p>
 </div>
 </div>
 
-<div id="outline-container-org751cb13" class="outline-4">
-<h4 id="org751cb13">Scores by school size</h4>
-<div class="outline-text-4" id="text-org751cb13">
+<div id="outline-container-org1e54187" class="outline-4">
+<h4 id="org1e54187">Difference of Scores by School Size</h4>
+<div class="outline-text-4" id="text-org1e54187">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -196,16 +368,17 @@ We can say that such difference is neglectable. The rest of the results follow a
 
 <col  class="org-right" />
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="org-left">SchoolSize</td>
-<td class="org-right">AverageMathScore</td>
-<td class="org-right">AverageReadingScore</td>
-<td class="org-right">%PassingMath</td>
-<td class="org-right">%PassingReading</td>
-<td class="org-right">%OverallPassing</td>
+<th scope="col" class="org-left">SchoolSize</th>
+<th scope="col" class="org-right">AverageMathScore</th>
+<th scope="col" class="org-right">AverageReadingScore</th>
+<th scope="col" class="org-right">%PassingMath</th>
+<th scope="col" class="org-right">%PassingReading</th>
+<th scope="col" class="org-right">%OverallPassing</th>
 </tr>
-
+</thead>
+<tbody>
 <tr>
 <td class="org-left">Small   (&lt;1000)</td>
 <td class="org-right">0.000000</td>
@@ -237,9 +410,9 @@ We can say that such difference is neglectable. The rest of the results follow a
 </div>
 </div>
 
-<div id="outline-container-org0834247" class="outline-4">
-<h4 id="org0834247">Scores by school type</h4>
-<div class="outline-text-4" id="text-org0834247">
+<div id="outline-container-org3de2a9c" class="outline-4">
+<h4 id="org3de2a9c">Difference of Scores by School Type</h4>
+<div class="outline-text-4" id="text-org3de2a9c">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -288,21 +461,50 @@ We can say that such difference is neglectable. The rest of the results follow a
 </table>
 </div>
 </div>
+
+<div id="outline-container-orgfbd0d07" class="outline-4">
+<h4 id="orgfbd0d07">Difference of Math and Reading scores by grade</h4>
+<div class="outline-text-4" id="text-orgfbd0d07">
+<p>
+Because we replaced the scores of the 9th grade with <code>NaN</code> values, we can&rsquo;t really compare the 9th grade row in the same way as we can compare the rest of the analysis results. If we try to use Python to make a judgement, we will probably run into an error as we could not compare <code>NaN</code> to a <code>float</code> like with other tests.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #339CDB;">assert</span> <span style="color: #C586C0;">abs</span>(value_modified / value_original) &lt; <span style="color: #B5CEA8; font-weight: bold;">0.01</span>
+</pre>
 </div>
 
-<div id="outline-container-orgfcfcae4" class="outline-3">
-<h3 id="orgfcfcae4">Summary</h3>
-<div class="outline-text-3" id="text-orgfcfcae4">
+<div class="org-src-container">
+<pre class="src src-org">&gt;       assert abs(value_modified / value_original) &lt; 0.01
+E       assert nan &lt; 0.01
+
+PyCitySchools_test.py:159: AssertionError
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0f11fd9" class="outline-3">
+<h3 id="org0f11fd9">Summary</h3>
+<div class="outline-text-3" id="text-org0f11fd9">
 <p>
 Summarize four changes in the updated school district analysis after reading and math scores for the ninth grade at Thomas High School have been replaced with NaNs.
 </p>
+
+<ol class="org-ol">
+<li>The biggest change was that Thomas High School was Ranked <code>#1</code> in Passing Reading Percentage before removing the data, and moved to <code>#3</code> once we replaced the scores with <code>NaN</code>.</li>
+<li>Another important change was that Thomas High School was <code>Top 5</code> in Average Math Score before removing the data, and moved to <code>#6</code> once we replaced the scores with <code>NaN</code>.</li>
+<li>The whole District Average Math Score decreased by <code>1%</code> after removing the data.</li>
+<li>The School Summary was not heavily affected as the schools are shown individually, however, Thomas High School affects the Binned results because it is grouped with the rest of the <code>Charter</code>, <code>Medium Sized</code> and <code>$631-645</code> groups. The <code>Spending</code> table being the most important one due to monetary implications.</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Alberto Valdez</p>
-<p class="date">Created: 2022-07-26 Tue 01:12</p>
+<p class="date">Created: 2022-07-26 Tue 14:24</p>
 </div>
 </body>
 </html>

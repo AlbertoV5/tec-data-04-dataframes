@@ -10,17 +10,129 @@
 * School District Analysis
 
 ** Overview
-Explain the purpose of this analysis.
+
+Previously, we did an analysis of the student performance and funding of various schools. The results were very informative as we got to see the average scores by grade, school type, school size, etc. However, we need to repeat the process as we were informed that some of the data is invalid as some grades seem to be altered.
+
+** Tools and Requirements
+
+#+NAME: python_version
+#+begin_src shell :exports none
+python --version
+#+end_src
+
+call_python_version()
+#+NAME: requirements
+#+begin_src shell :exports results :results output replace
+cat requirements.txt
+#+end_src
+
+#+RESULTS: requirements
+#+begin_example
+numpy==1.21.6
+pandas==1.3.5
+pytest==7.1.2
+#+end_example
+
 ** Results
-- How is the district summary affected?
-- How is the school summary affected?
-- How does replacing the ninth graders’ math and reading scores affect Thomas High School’s performance relative to the other schools?
-- How does replacing the ninth-grade scores affect the following:
 
-*** Math and reading scores by grade
-Because we replaced the scores of the 9th grade with =NaN= values, we can't really compare the 9th grade row in the same way as we can compare the rest of the analysis results.
+The District Summary was not heavily affected by the missing data. We replaced all of the scores of the 9th grade of Thomas High School with =NaN= values. Even after that, the averages and percentages by school types, sizes and spending changed by 1% or less.
 
-If we try to use Python to make a judgement, we will probably run into an error as we could not compare =NaN= to a float as with other tests.
+| Total Schools | Total Students | Total Budget   | Average Math Score | Average Reading Score | % Passing Math | % Passing Reading | % Overall Passing |
+|---------------+----------------+----------------+--------------------+-----------------------+----------------+-------------------+-------------------|
+|            15 |          39170 | $24,649,428.00 |               78.9 |                  81.9 |             75 |                86 |                65 |
+
+In our previous analysis, the Average Math Score was =79=. The rest of the values, once formatted, stay the same. However, the School Summary was affected in two crucial ways. In order to find the effects of the missing data, we can design a few tests to compare them exhaustively.
+
+#+begin_src python :eval never
+# from PyCitySchools_test.py
+def compare_dataframes(original: pd.DataFrame, modified: pd.DataFrame):
+    """Substract modified DF from original.
+    Check that the values in the difference are smaller than 1%."""
+    assert original.size == modified.size
+    difference = original - modified
+    for col_diff, col in zip(difference, original):
+        for val_diff, val in zip(difference[col_diff], original[col]):
+            ratio = abs(val_diff / val)
+            assert ratio < 0.01
+            if ratio != 0:
+                msg = f"{col_diff} DIFFERENCE: {100*ratio:.2f}%"
+                log.info(msg)
+    log.info(difference)
+#+end_src
+
+*** Thomas High School Difference
+A positive value means the that original result had a higher score.
+|                    | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
+| Thomas High School |         0.067412 |           -0.047152 |     0.086481 |        0.290129 |        0.317689 |
+
+We can suspect that the original Thomas High School 9th grade scores were curved to help more students pass the assignatures. The difference is very small, however, when comparing the rankings of each school by all columns, we find two problems.
+#+begin_src org
+Thomas High School rank moved from 4 to 6 in Average Math Score.
+Thomas High School rank moved from 1 to 3 in % Passing Reading.
+#+end_src
+
+This is the code we can use to find the ranking differences.
+#+begin_src python :eval never
+# from PyCitySchools_test.py
+def test_ths_ranks(complete_parameters: dict, modified_parameters: dict):
+    """Find if Thomas High School rank amongst other schools changed."""
+    original_df = pd.DataFrame(complete_parameters)
+    modified_df = pd.DataFrame(modified_parameters)
+    size = complete_parameters["Average Math Score"].size
+    rank_difference = pd.DataFrame()
+    for category in complete_parameters:
+        original = original_df.sort_values(by=category, ascending=False)
+        modified = modified_df.sort_values(by=category, ascending=False)
+        original["rank"] = range(1, size + 1)
+        modified["rank"] = range(1, size + 1)
+        original_rank = original.loc[original.index == "Thomas High School", "rank"]
+        modified_rank = modified.loc[modified.index == "Thomas High School", "rank"]
+        rank_shift = original_rank - modified_rank
+        if rank_shift.values[0] != 0:
+            log.info(
+f"""Thomas High School rank moved from {original_rank.values[0]} to {modified_rank.values[0]} in {category}."""
+            )
+        rank_difference[category] = rank_shift
+
+    rank_difference.index.name = ""
+    log.info(rank_difference)
+#+end_src
+
+A negative value means that the original result had the school ranked higher.
+|                    | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
+|--------------------+------------------+---------------------+--------------+-----------------+-----------------|
+| Thomas High School |               -2 |                   0 |            0 |              -2 |               0 |
+
+This tells us that, in the original data, Thomas High School was =#1= in =%PassingReading= and =Top 5= in =AverageMathScore=. This is the single most important change in the results of the analysis, as school rankings can influence funding, student enrollment and many other benefits.
+
+Now that we have the code to find the differences on the results, we can explore the rest of the School Analysis parts for sake of completition. Positive values mean that the original results were higher.
+
+*** Difference of Scores by School Spending
+
+| SchoolSpending | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
+|----------------+------------------+---------------------+--------------+-----------------+-----------------|
+| <$586          |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
+| $586-630       |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
+| $631-645       |         0.016853 |           -0.011788 |      0.02162 |        0.072532 |        0.079422 |
+| $646-675       |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
+
+*** Difference of Scores by School Size
+
+| SchoolSize          | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
+|---------------------+------------------+---------------------+--------------+-----------------+-----------------|
+| Small   (<1000)     |         0.000000 |             0.00000 |     0.000000 |        0.000000 |        0.000000 |
+| Medium  (1000-1999) |         0.013482 |            -0.00943 |     0.017296 |        0.058026 |        0.063538 |
+| Large   (2000-5000) |         0.000000 |             0.00000 |     0.000000 |        0.000000 |        0.000000 |
+
+*** Difference of Scores by School Type
+
+| SchoolType | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
+|------------+------------------+---------------------+--------------+-----------------+-----------------|
+| Charter    |         0.008426 |           -0.005894 |      0.01081 |        0.036266 |        0.039711 |
+| District   |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
+
+*** Difference of Math and Reading scores by grade
+Because we replaced the scores of the 9th grade with =NaN= values, we can't really compare the 9th grade row in the same way as we can compare the rest of the analysis results. If we try to use Python to make a judgement, we will probably run into an error as we could not compare =NaN= to a =float= like with other tests.
 
 #+begin_src python :eval never
 assert abs(value_modified / value_original) < 0.01
@@ -33,40 +145,10 @@ E       assert nan < 0.01
 PyCitySchools_test.py:159: AssertionError
 #+end_src
 
-*** Scores by school spending
-
-When measuring the difference between the original dataframe and the dataframe with the scores removed, we find very small differences. So small that they don't show up in the formatted results, but we can see them in the tests.
-#+begin_src python :eval never
-# from PyCitySchools_test.py
-bins = [0, 585, 630, 645, 675]
-labels = ["<$586", "$586-630", "$631-645", "$646-675"]
-binned = pd.cut(schools_df["budget"] / schools_df["size"], bins, labels=labels)
-complete = group_scores_by(binned, complete_parameters)
-modified = group_scores_by(binned, modified_parameters)
-compare_dataframes(complete, modified)
-#+end_src
-| SchoolSpending | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
-|----------------+------------------+---------------------+--------------+-----------------+-----------------|
-| <$586          |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
-| $586-630       |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
-| $631-645       |         0.016853 |           -0.011788 |      0.02162 |        0.072532 |        0.079422 |
-| $646-675       |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
-
-We can say that such difference is neglectable. The rest of the results follow a similar trend, where none of the differences where over 1% (one percent).
-
-*** Scores by school size
-
-| SchoolSize         | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
-| Small   (<1000)     |         0.000000 |             0.00000 |     0.000000 |        0.000000 |        0.000000 |
-| Medium  (1000-1999) |         0.013482 |            -0.00943 |     0.017296 |        0.058026 |        0.063538 |
-| Large   (2000-5000) |         0.000000 |             0.00000 |     0.000000 |        0.000000 |        0.000000 |
-
-*** Scores by school type
-
-| SchoolType | AverageMathScore | AverageReadingScore | %PassingMath | %PassingReading | %OverallPassing |
-|------------+------------------+---------------------+--------------+-----------------+-----------------|
-| Charter    |         0.008426 |           -0.005894 |      0.01081 |        0.036266 |        0.039711 |
-| District   |         0.000000 |            0.000000 |      0.00000 |        0.000000 |        0.000000 |
-
 ** Summary
 Summarize four changes in the updated school district analysis after reading and math scores for the ninth grade at Thomas High School have been replaced with NaNs.
+
+1. The biggest change was that Thomas High School was Ranked =#1= in Passing Reading Percentage before removing the data, and moved to =#3= once we replaced the scores with =NaN=.
+2. Another important change was that Thomas High School was =Top 5= in Average Math Score before removing the data, and moved to =#6= once we replaced the scores with =NaN=.
+3. The whole District Average Math Score decreased by =1%= after removing the data.
+4. The School Summary was not heavily affected as the schools are shown individually, however, Thomas High School affects the Binned results because it is grouped with the rest of the =Charter=, =Medium Sized= and =$631-645= groups. The =Spending= table being the most important one due to monetary implications.
