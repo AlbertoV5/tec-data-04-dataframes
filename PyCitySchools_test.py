@@ -1,14 +1,8 @@
 """
 PyCitySchools Test.
 
-In this tests we want to demonstrate that removing a small amount of data 
-won't impact the results enough to be noticeable.
-
-We will load the same dataset and create two dataframes.
-The first one will be the unmodified dataset and the second one will be
-the dataset with the grades from 9th grade of Thomas High School removed.
-
-We will get the averages and sort the values and compare the results.
+In this test we want to find the differences on the original dataset
+and the modified dataset with the 9th grade scores removed.
 
 This tests can be run with the "pytest" command.
 """
@@ -61,7 +55,7 @@ def modified_df(complete_df: pd.DataFrame):
 
 
 def get_parameters(df: pd.DataFrame):
-    """Calculate all the parameters used for the test.
+    """Calculate all the columns used for the test.
     Average Math Score, Average Reading Score, etc."""
     # Get averages
     per_school_math_average = df.groupby(SCHOOL_NAME)[MATH_SCORE].mean()
